@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import 'package:a3_test/core/routes.dart';
+import 'package:a3_test/core/theme.dart';
 
 void main() => runApp(const MyApp());
 
@@ -8,18 +10,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'A3Test',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.montserratTextTheme(theme.textTheme),
-      ),
-      home: Scaffold(
-        appBar: AppBar(title: const Text('A3Test')),
-        body: const Center(child: Text('A3Test')),
-      ),
+      theme: appTheme(context),
+      routerConfig: routes,
     );
   }
 }
