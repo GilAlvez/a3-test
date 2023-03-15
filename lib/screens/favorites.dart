@@ -25,13 +25,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     });
   }
 
-  // Future<void> _addRepository(int id, String name, String url) async {
-  //   await GitHubFavoriteRepository().addFavoriteRepository(id, name, url);
-  //   setState(() {
-  //     _repositories.add(Favorite(id: id, name: name, url: url));
-  //   });
-  // }
-
   Future<void> _removeRepository(int id) async {
     await GitHubFavoriteRepository().removeFavoriteRepository(id);
     setState(() {
