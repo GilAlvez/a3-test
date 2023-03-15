@@ -11,7 +11,12 @@ class HomeScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: const Text('GitHub Repositories')),
+        appBar: AppBar(title: const Text('GitHub Repositories'), actions: [
+          IconButton(
+            onPressed: () => route.push('/favorites'),
+            icon: const Icon(Icons.favorite_border),
+          ),
+        ]),
         body: SizedBox.expand(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
