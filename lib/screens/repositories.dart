@@ -1,6 +1,7 @@
 import 'package:a3_test/models/github_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 class RepositoriesScreen extends StatelessWidget {
   const RepositoriesScreen(this.username, {super.key});
@@ -37,15 +38,58 @@ class RepositoriesScreen extends StatelessWidget {
                   final repository = repositories[index];
                   return Card(
                     child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 20.0,
+                        vertical: 12.0,
+                      ),
                       title: Text(repository['name']),
-                      subtitle: Text(
-                        repository['description'] ?? '',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            repository['description'] ?? '',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(Icons.star_outline),
+                                  Text(repository['stargazers_count'].toString()),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(Icons.language_outlined),
+                                  Text(repository['language'] ?? 'Unknow'),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(Icons.calendar_month_outlined),
+                                  Text(
+                                    DateFormat.yMMMd().format(
+                                      DateTime.parse(repository['created_at']),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                       trailing: IconButton(
                         onPressed: () {},
                         icon: const Icon(Icons.favorite_border),
+                        visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
                         splashRadius: 24,
                       ),
                     ),
