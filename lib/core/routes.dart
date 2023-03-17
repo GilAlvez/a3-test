@@ -7,11 +7,11 @@ final GoRouter routes = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const RepositoriesScreen(),
+      builder: (context, state) => const RepositoriesPage(),
     ),
     GoRoute(
       path: '/favorites',
-      builder: (context, state) => const FavoritesScreen(),
+      builder: (context, state) => const FavoritesPage(),
     ),
   ],
 );
