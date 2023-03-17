@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import 'package:a3_test/app/repositories/repositories_controller.dart';
 import 'package:a3_test/app/repositories/repositories_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RepositoriesList extends StatefulWidget {
   const RepositoriesList({super.key});
@@ -37,6 +38,12 @@ class _RepositoriesListState extends State<RepositoriesList> {
     });
   }
 
+  Future<void> _launchUrl(Uri url) async {
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final router = GoRouter.of(context);
@@ -57,6 +64,7 @@ class _RepositoriesListState extends State<RepositoriesList> {
 
                 return Card(
                   child: ListTile(
+                    onTap: () => _launchUrl(Uri.parse(repository.url)),
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 20.0,
                       vertical: 12.0,

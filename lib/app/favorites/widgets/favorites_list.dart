@@ -1,6 +1,7 @@
 import 'package:a3_test/app/favorites/favorites_controller.dart';
 import 'package:a3_test/app/favorites/favorites_model.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FavoritesList extends StatefulWidget {
   const FavoritesList({super.key});
@@ -33,6 +34,12 @@ class _FavoritesListState extends State<FavoritesList> {
     });
   }
 
+  Future<void> _launchUrl(Uri url) async {
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -44,11 +51,16 @@ class _FavoritesListState extends State<FavoritesList> {
           final repository = favorites[index];
           return Card(
             child: ListTile(
+              onTap: () => _launchUrl(Uri.parse(repository.url)),
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 20.0,
               ),
               title: Text(repository.name),
-              subtitle: Text(repository.url),
+              subtitle: Text(
+                repository.url,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
               trailing: IconButton(
                 onPressed: () => removeFavorites(repository.id),
                 icon: const Icon(Icons.remove_circle_outline, color: Colors.red),
