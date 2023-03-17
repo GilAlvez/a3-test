@@ -17,7 +17,23 @@ class RepositoriesController {
     }
 
     if (response.statusCode >= 400) {
-      throw Exception('Failed to load repositories. Status code: ${response.statusCode}');
+      String message = '';
+
+      switch (response.statusCode) {
+        case 403:
+          message =
+              'You do not have permission to access this resource. It might be due to multiple requests. Please try refreshing or try again later.';
+          break;
+        case 404:
+          message = 'The resource you are trying to access was not found.';
+          break;
+        case 500:
+          message = 'The server encountered an unexpected error.';
+          break;
+        default:
+          message = 'An error occurred.';
+      }
+      throw message;
     }
 
     return [];

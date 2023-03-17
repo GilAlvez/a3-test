@@ -1,5 +1,6 @@
 import 'package:a3_test/app/repositories/widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router_flow/go_router_flow.dart';
 import 'package:intl/intl.dart';
 
 import 'package:a3_test/app/repositories/repositories_controller.dart';
@@ -38,6 +39,8 @@ class _RepositoriesListState extends State<RepositoriesList> {
 
   @override
   Widget build(BuildContext context) {
+    final router = GoRouter.of(context);
+
     return FutureBuilder(
       future: loadRepositories(),
       builder: (context, snapshot) {
@@ -114,7 +117,23 @@ class _RepositoriesListState extends State<RepositoriesList> {
         }
 
         if (snapshot.hasError) {
-          return const Center(child: Text('error'));
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '${snapshot.error}',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () => router.pushReplacement('/'),
+                  child: const Text('Refresh'),
+                ),
+              ],
+            ),
+          );
         }
 
         return const Center(child: CircularProgressIndicator());
