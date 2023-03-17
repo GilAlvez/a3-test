@@ -46,8 +46,6 @@ class _RepositoriesListState extends State<RepositoriesList> {
 
   @override
   Widget build(BuildContext context) {
-    final router = GoRouter.of(context);
-
     return FutureBuilder(
       future: loadRepositories(),
       builder: (context, snapshot) {
@@ -141,7 +139,7 @@ class _RepositoriesListState extends State<RepositoriesList> {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () => router.pushReplacement('/'),
+                  onPressed: () => context.pushReplacement('/'),
                   child: const Text('Refresh'),
                 ),
               ],

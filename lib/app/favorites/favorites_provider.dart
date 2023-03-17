@@ -28,8 +28,8 @@ class FavoritesProvider extends ChangeNotifier {
   }
 
   void removeFavorites(int id) async {
-    await FavoritesController().removeFavoriteRepository(id);
     _favorites.removeWhere((repo) => repo.id == id);
+    await FavoritesController().removeFavoriteRepository(id);
 
     notifyListeners();
   }
