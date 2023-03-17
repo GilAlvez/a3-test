@@ -1,6 +1,7 @@
 import 'package:a3_test/app/favorites/favorites_controller.dart';
 import 'package:a3_test/app/favorites/favorites_model.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router_flow/go_router_flow.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FavoritesList extends StatefulWidget {
@@ -44,34 +45,51 @@ class _FavoritesListState extends State<FavoritesList> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: ListView.separated(
-        itemCount: favorites.length,
-        separatorBuilder: (context, index) => const SizedBox(height: 8),
-        itemBuilder: (context, index) {
-          final repository = favorites[index];
-          return Card(
-            child: ListTile(
-              onTap: () => _launchUrl(Uri.parse(repository.url)),
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
+      child: favorites.isEmpty
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'You don\'t have any favorited repository',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => context.go('/'),
+                    child: const Text('Back'),
+                  )
+                ],
               ),
-              title: Text(repository.name),
-              subtitle: Text(
-                repository.url,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              trailing: IconButton(
-                onPressed: () => removeFavorites(repository.id),
-                icon: const Icon(Icons.remove_circle_outline, color: Colors.red),
-                visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-                splashRadius: 24,
-                splashColor: Colors.red.shade50,
-              ),
+            )
+          : ListView.separated(
+              itemCount: favorites.length,
+              separatorBuilder: (context, index) => const SizedBox(height: 8),
+              itemBuilder: (context, index) {
+                final repository = favorites[index];
+                return Card(
+                  child: ListTile(
+                    onTap: () => _launchUrl(Uri.parse(repository.url)),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                    ),
+                    title: Text(repository.name),
+                    subtitle: Text(
+                      repository.url,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    trailing: IconButton(
+                      onPressed: () => removeFavorites(repository.id),
+                      icon: const Icon(Icons.remove_circle_outline, color: Colors.red),
+                      visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+                      splashRadius: 24,
+                      splashColor: Colors.red.shade50,
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }
