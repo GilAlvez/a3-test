@@ -29,6 +29,13 @@ class _RepositoriesListState extends State<RepositoriesList> {
     return await RepositoriesController().getFlutterRepositories();
   }
 
+  Future<void> _refresh() async {
+    final updatedRepos = await loadRepositories();
+    setState(() {
+      repositories = updatedRepos;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -37,69 +44,72 @@ class _RepositoriesListState extends State<RepositoriesList> {
         if (snapshot.hasData) {
           final List<Repository> repos = snapshot.data ?? [];
 
-          return ListView.separated(
-            itemCount: repos.length,
-            separatorBuilder: (context, index) => const SizedBox(height: 14),
-            itemBuilder: (context, index) {
-              final repository = repos[index];
+          return RefreshIndicator(
+            onRefresh: _refresh,
+            child: ListView.separated(
+              itemCount: repos.length,
+              separatorBuilder: (context, index) => const SizedBox(height: 14),
+              itemBuilder: (context, index) {
+                final repository = repos[index];
 
-              return Card(
-                child: ListTile(
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                    vertical: 12.0,
-                  ),
-                  title: Text(repository.name),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        repository.description,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(Icons.star_outline),
-                              const SizedBox(width: 4),
-                              Text(repository.stars.toString()),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(Icons.code),
-                              const SizedBox(width: 4),
-                              Text(repository.language),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(Icons.calendar_month_outlined),
-                              const SizedBox(width: 4),
-                              Text(
-                                DateFormat.yMMMd().format(
-                                  DateTime.parse(repository.createdAt),
+                return Card(
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                      vertical: 12.0,
+                    ),
+                    title: Text(repository.name),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          repository.description,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(Icons.star_outline),
+                                const SizedBox(width: 4),
+                                Text(repository.stars.toString()),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(Icons.code),
+                                const SizedBox(width: 4),
+                                Text(repository.language),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(Icons.calendar_month_outlined),
+                                const SizedBox(width: 4),
+                                Text(
+                                  DateFormat.yMMMd().format(
+                                    DateTime.parse(repository.createdAt),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    trailing: FavoriteButton(repository: repository),
                   ),
-                  trailing: FavoriteButton(repository: repository),
-                ),
-              );
-            },
+                );
+              },
+            ),
           );
         }
 
