@@ -1,18 +1,13 @@
-import 'package:go_router/go_router.dart';
+import 'package:go_router_flow/go_router_flow.dart';
 
-import 'package:a3_test/screens/home.dart';
-import 'package:a3_test/screens/repositories.dart';
-import 'package:a3_test/screens/favorites.dart';
+import 'package:a3_test/app/favorites/favorites_page.dart';
+import 'package:a3_test/app/repositories/repositories_page.dart';
 
 final GoRouter routes = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const HomeScreen(),
-    ),
-    GoRoute(
-      path: '/repositories/:username',
-      builder: (context, state) => RepositoriesScreen(state.params['username']),
+      builder: (context, state) => const RepositoriesScreen(),
     ),
     GoRoute(
       path: '/favorites',

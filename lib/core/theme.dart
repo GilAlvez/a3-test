@@ -6,6 +6,6 @@ ThemeData appTheme(BuildContext context) {
 
   return ThemeData(
     primarySwatch: Colors.blue,
-    textTheme: GoogleFonts.montserratTextTheme(theme.textTheme),
+    textTheme: GoogleFonts.interTextTheme(theme.textTheme),
   );
 }
