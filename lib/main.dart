@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(const MyApp());
+import 'package:a3_test/app/favorites/favorites_provider.dart';
+import 'package:a3_test/core/routes.dart';
+import 'package:a3_test/core/theme.dart';
+
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => FavoritesProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'A3Test',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        appBar: AppBar(title: const Text('A3Test')),
-        body: const Center(child: Text('A3Test')),
-      ),
+      theme: appTheme(context),
+      routerConfig: routes,
     );
   }
 }
