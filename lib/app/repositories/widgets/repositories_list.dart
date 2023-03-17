@@ -82,7 +82,9 @@ class _RepositoriesListState extends State<RepositoriesList> {
                           height: 20,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MediaQuery.of(context).orientation == Orientation.landscape
+                              ? MainAxisAlignment.spaceEvenly
+                              : MainAxisAlignment.spaceBetween,
                           children: [
                             Row(
                               mainAxisSize: MainAxisSize.min,
@@ -129,10 +131,13 @@ class _RepositoriesListState extends State<RepositoriesList> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  '${snapshot.error}',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                  textAlign: TextAlign.center,
+                SizedBox(
+                  width: 360,
+                  child: Text(
+                    '${snapshot.error}',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
