@@ -1,10 +1,10 @@
 # Flutter GitHub Repositories App
 
-This project is a Flutter app that fetches data from the GitHub API (REST or GraphQL) to display a list of repositories for a specified user. The user can save favorite repositories and view them on a separate screen. 
+This project is a Flutter app that fetches data from the GitHub API (REST) to display a list of repositories for a specified user. The user can save favorite repositories and view them on a separate screen. 
 
 ## Technologies
 
-- flutter- UI development kit for building native app for multi plataform.
+- flutter- to build a multi-platform  natively compiled application.
 - http - to make requests to the GitHub API.
 - go_routes_flow - to manage navigation between screens.
 - intl - to format date
@@ -24,7 +24,6 @@ This project is a Flutter app that fetches data from the GitHub API (REST or Gra
 - Portrait orientation support
 - Favorites are stored locally
 - Option to launch the GitHub page for each repository by tapping on it
-- Improved performance by reducing unnecessary re-renders in the FutureBuilder widget
 
 ## Screenshots
 
@@ -59,7 +58,7 @@ lib
 ├── core
 │   ├── routes.dart
 │   └── theme.dart
-test
+├── main.dart
 │ 
 ...
 ```
