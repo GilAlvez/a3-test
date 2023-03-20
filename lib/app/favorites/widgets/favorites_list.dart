@@ -13,6 +13,7 @@ class FavoritesList extends StatefulWidget {
 
 class _FavoritesListState extends State<FavoritesList> {
   late List<Favorite> favorites = [];
+  final controller = FavoritesController();
 
   @override
   void initState() {
@@ -25,11 +26,11 @@ class _FavoritesListState extends State<FavoritesList> {
   }
 
   Future<List<Favorite>> loadFavorites() async {
-    return await FavoritesController().getFavoriteRepositories();
+    return await controller.getFavoriteRepositories();
   }
 
   void removeFavorites(int id) async {
-    await FavoritesController().removeFavoriteRepository(id);
+    await controller.removeFavoriteRepository(id);
     setState(() {
       favorites.removeWhere((repo) => repo.id == id);
     });

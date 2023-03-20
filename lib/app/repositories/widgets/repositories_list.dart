@@ -16,6 +16,7 @@ class RepositoriesList extends StatefulWidget {
 
 class _RepositoriesListState extends State<RepositoriesList> {
   late List<Repository> repositories;
+  final controller = RepositoriesController();
 
   @override
   void initState() {
@@ -28,7 +29,7 @@ class _RepositoriesListState extends State<RepositoriesList> {
   }
 
   Future<List<Repository>> loadRepositories() async {
-    return await RepositoriesController().getFlutterRepositories();
+    return await controller.getFlutterRepositories();
   }
 
   Future<void> _refresh() async {
@@ -50,15 +51,15 @@ class _RepositoriesListState extends State<RepositoriesList> {
       future: loadRepositories(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final List<Repository> repos = snapshot.data ?? [];
+          final List<Repository> loadedRepositories = snapshot.data ?? [];
 
           return RefreshIndicator(
             onRefresh: _refresh,
             child: ListView.separated(
-              itemCount: repos.length,
+              itemCount: loadedRepositories.length,
               separatorBuilder: (context, index) => const SizedBox(height: 14),
               itemBuilder: (context, index) {
-                final repository = repos[index];
+                final repository = loadedRepositories[index];
 
                 return Card(
                   child: ListTile(
