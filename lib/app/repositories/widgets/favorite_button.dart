@@ -20,11 +20,11 @@ class _FavoriteButtonState extends State<FavoriteButton> {
 
   @override
   Widget build(BuildContext context) {
-    final favProvider = Provider.of<FavoritesProvider>(context);
-    final isFavorite = favProvider.favorites.any((fav) => fav.id == widget.repository.id);
+    final favoriteProvider = Provider.of<FavoritesProvider>(context);
+    final isFavorite = favoriteProvider.favorites.any((fav) => fav.id == widget.repository.id);
 
     return IconButton(
-      onPressed: () => favProvider.toggleFavorites(
+      onPressed: () => favoriteProvider.toggleFavorites(
         widget.repository.id,
         widget.repository.name,
         widget.repository.url,
