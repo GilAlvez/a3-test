@@ -33,9 +33,18 @@ class RepositoriesController {
         default:
           message = 'An error occurred.';
       }
-      throw message;
+      throw RepositoriesResponseException(message);
     }
 
     return [];
   }
+}
+
+class RepositoriesResponseException implements Exception {
+  final String message;
+
+  RepositoriesResponseException(this.message);
+
+  @override
+  String toString() => message;
 }
