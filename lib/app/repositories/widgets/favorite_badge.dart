@@ -22,8 +22,8 @@ class _FavoriteBadgeState extends State<FavoriteBadge> {
   Widget build(BuildContext context) {
     return Badge(
       label: Consumer<FavoritesProvider>(
-        builder: (context, favProvider, child) {
-          return Text('${favProvider.favorites.length}');
+        builder: (context, favoriteProvider, child) {
+          return Text('${favoriteProvider.favorites.length}');
         },
       ),
       alignment: AlignmentDirectional.bottomEnd,

@@ -2,8 +2,8 @@ import 'package:a3_test/app/favorites/favorites_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('Favorite', () {
-    test('fromJson should return a valid Favorite instance', () {
+  group('Favorite Model', () {
+    test('fromJson should creates a valid Favorite object from json', () {
       final Map<String, dynamic> json = {
         'id': 1,
         'name': 'Test',
@@ -18,17 +18,18 @@ void main() {
       expect(favorite.url, equals('https://example.com'));
     });
 
-    test('toJson should return a valid Map', () {
-      final Map<String, dynamic> json = {
-        'id': 1,
-        'name': 'Test',
-        'url': 'https://example.com',
-      };
+    test('toJson should return a valid JSON representation of a Favorite object', () {
+      final Favorite favoriteObject = Favorite(
+        id: 1,
+        name: 'Test',
+        url: 'https://example.com',
+      );
 
-      final Favorite favorite = Favorite.fromJson(json);
-      final Map<String, dynamic> favoriteJson = favorite.toJson();
+      final Map<String, dynamic> favoriteJson = favoriteObject.toJson();
 
-      expect(favoriteJson, equals(json));
+      expect(favoriteJson['id'], 1);
+      expect(favoriteJson['name'], 'Test');
+      expect(favoriteJson['url'], 'https://example.com');
     });
   });
 }

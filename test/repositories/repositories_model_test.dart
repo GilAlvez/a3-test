@@ -3,7 +3,7 @@ import 'package:a3_test/app/repositories/repositories_model.dart';
 
 void main() {
   group('Repository Model', () {
-    test('fromJson creates a Repository object from json', () {
+    test('fromJson should creates a valid Repository object from json', () {
       final json = {
         'id': 1,
         'name': 'Test Repository',
@@ -16,6 +16,7 @@ void main() {
 
       final repository = Repository.fromJson(json);
 
+      expect(repository, const TypeMatcher<Repository>());
       expect(repository.id, 1);
       expect(repository.name, 'Test Repository');
       expect(repository.description, 'A test repository');
@@ -25,7 +26,7 @@ void main() {
       expect(repository.createdAt, '2022-03-02T00:00:00Z');
     });
 
-    test('toJson returns a json representation of a Repository object', () {
+    test('toJson should return a valid JSON representation of a Repository object', () {
       final repository = Repository(
           id: 1,
           name: 'Test Repository',
@@ -45,5 +46,22 @@ void main() {
       expect(json['language'], 'Dart');
       expect(json['created_at'], '2022-03-02T00:00:00Z');
     });
+  });
+
+  test('fromJson should have treatment for null values', () {
+    final json = {
+      'id': 1,
+      'name': 'Test Repository',
+      'description': null,
+      'html_url': 'https://github.com/test/test-repo',
+      'stargazers_count': 10,
+      'language': null,
+      'created_at': '2022-03-02T00:00:00Z'
+    };
+
+    final repository = Repository.fromJson(json);
+
+    expect(repository.description, '');
+    expect(repository.language, 'Unknown');
   });
 }
