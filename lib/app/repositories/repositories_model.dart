@@ -24,7 +24,7 @@ class Repository {
       description: json['description'] ?? '',
       url: json['html_url'],
       stars: json['stargazers_count'],
-      language: json['language'] ?? 'Unknow',
+      language: json['language'] ?? 'Unknown',
       createdAt: json['created_at'],
     );
   }
