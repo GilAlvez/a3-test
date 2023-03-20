@@ -16,6 +16,7 @@ void main() {
 
       final repository = Repository.fromJson(json);
 
+      expect(repository, const TypeMatcher<Repository>());
       expect(repository.id, 1);
       expect(repository.name, 'Test Repository');
       expect(repository.description, 'A test repository');

@@ -20,8 +20,7 @@ void main() {
         ),
       );
 
-      final badgeLabelFinder = find.text('2');
-      expect(badgeLabelFinder, findsOneWidget);
+      expect(find.text('2'), findsOneWidget);
     });
   });
 }
