@@ -29,7 +29,7 @@ class _RepositoriesListState extends State<RepositoriesList> {
   }
 
   Future<List<Repository>> loadRepositories() async {
-    return await controller.getFlutterRepositories();
+    return await controller.getRepositoriesByUsername('flutter');
   }
 
   Future<void> _refresh() async {
