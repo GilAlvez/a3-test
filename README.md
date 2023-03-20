@@ -48,13 +48,12 @@ lib
 │   │   ├── favorites_model.dart
 │   │   ├── favorites_page.dart
 │   │   ├── favorites_provider.dart
-│   │   └── favorites_service.dart
+│   │   └── favorites_controller.dart
 │   └── repositories
 │       ├── widgets
 │       ├── repositories_model.dart
 │       ├── repositories_page.dart
-│       ├── repositories_provider.dart
-│       └── repositories_service.dart
+│       └── repositories_controller.dart
 ├── core
 │   ├── routes.dart
 │   └── theme.dart
